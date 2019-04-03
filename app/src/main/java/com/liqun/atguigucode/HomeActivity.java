@@ -39,7 +39,6 @@ public class HomeActivity extends FragmentActivity {
          * 默认选中第一个Tab
          */
         mRgHome = findViewById(R.id.rg_home);
-        mRgHome.check(R.id.rb_common_frame);
     }
 
     /**
@@ -83,6 +82,8 @@ public class HomeActivity extends FragmentActivity {
                 switchFragment(fragment);
             }
         });
+        // 设置默认显示常用框架的fragment
+        mRgHome.check(R.id.rb_common_frame);
     }
 
 
