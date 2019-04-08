@@ -21,6 +21,7 @@ public class HomeActivity extends FragmentActivity {
     private RadioGroup mRgHome;
     private List<BaseFragment> mFragmentList;
     private int mPosition;
+    private BaseFragment tempFragment; // 暂存当前的fragment
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -79,7 +80,7 @@ public class HomeActivity extends FragmentActivity {
                 // 根据position获取fragment
                 BaseFragment fragment = getFragment();
                 // 切换fragment
-                switchFragment(fragment);
+                switchFragment(tempFragment,fragment);
             }
         });
         // 设置默认显示常用框架的fragment
@@ -95,14 +96,33 @@ public class HomeActivity extends FragmentActivity {
         return mFragmentList.get(mPosition);
     }
 
-    /**
-     * 切换到当前fragment以显示
-     * @param fragment
-     */
-    private void switchFragment(BaseFragment fragment) {
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction transaction = fm.beginTransaction();
-        transaction.replace(R.id.fl_content,fragment);
-        transaction.commit();
+
+    private void switchFragment(BaseFragment fromFragment,BaseFragment toFragment) {
+        // 判断fromFragment与toFragment是否为同一个fragment,不是才需要切换
+        if (tempFragment != toFragment) {
+            // 暂存将要显示的fragment
+            tempFragment = toFragment;
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            // 判断当前要显示的fragment是否被添加过
+            if (!toFragment.isAdded()) { // 没有被添加过
+                // 隐藏from
+                if (fromFragment != null) {
+                    transaction.hide(fromFragment);
+                }
+                // 添加to并提交
+                if (toFragment != null) {
+                    transaction.add(R.id.fl_content,toFragment).commit();
+                }
+            }else{ // 被添加过
+                // 隐藏from
+                if (fromFragment != null) {
+                    transaction.hide(fromFragment);
+                }
+                // 显示to并提交
+                if (toFragment != null) {
+                    transaction.show(toFragment).commit();
+                }
+            }
+        }
     }
 }
