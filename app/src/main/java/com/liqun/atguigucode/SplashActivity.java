@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 /**
  * 1、软件框架搭建
+ * 2、OkHttp
  */
 public class SplashActivity extends AppCompatActivity {
 
