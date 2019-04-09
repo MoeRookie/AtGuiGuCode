@@ -19,6 +19,7 @@
         <activity android:name=".HomeActivity"
             android:configChanges="orientation|screenSize|keyboardHidden">
         </activity>
+        <activity android:name=".activity.OkHttpActivity"></activity>
     </application>
 
 </manifest>

@@ -1,5 +1,6 @@
 package com.liqun.atguigucode.fragment;
 
+import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -7,6 +8,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.liqun.atguigucode.R;
+import com.liqun.atguigucode.activity.OkHttpActivity;
 import com.liqun.atguigucode.adapter.CommonFrameFragmentAdapter;
 import com.liqun.atguigucode.base.BaseFragment;
 
@@ -24,7 +26,11 @@ public class CommonFrameFragment extends BaseFragment {
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(mCtx, "data = " + mDatas[position], Toast.LENGTH_SHORT).show();
+                String data = mDatas[position];
+                if ("okhttp".equals(data.toLowerCase())) {
+                    Intent intent = new Intent(mCtx, OkHttpActivity.class);
+                    startActivity(intent);
+                }
             }
         });
         return view;
