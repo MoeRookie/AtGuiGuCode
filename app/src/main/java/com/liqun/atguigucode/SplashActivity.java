@@ -2,8 +2,9 @@ package com.liqun.atguigucode;
 
 import android.content.Intent;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * 1、软件框架搭建
