@@ -28,6 +28,18 @@
         android:layout_height="wrap_content"
         android:text="post请求"
         android:textAllCaps="false"/>
+    <Button
+        android:id="@+id/btn_ok_get"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="get请求 - OkHttp"
+        android:textAllCaps="false"/>
+    <Button
+        android:id="@+id/btn_ok_post"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="post请求 - OkHttp"
+        android:textAllCaps="false"/>
     <TextView
         android:id="@+id/tv_result"
         android:layout_width="match_parent"

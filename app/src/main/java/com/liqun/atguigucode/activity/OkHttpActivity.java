@@ -8,11 +8,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.liqun.atguigucode.R;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.StringCallback;
 
 import java.io.IOException;
 
+import okhttp3.Call;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -47,6 +51,8 @@ implements View.OnClickListener {
             }
         }
     };
+    private Button mBtnOkGet;
+    private Button mBtnOkPost;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,12 +65,16 @@ implements View.OnClickListener {
     private void initView() {
         mBtnGet = findViewById(R.id.btn_get);
         mBtnPost = findViewById(R.id.btn_post);
+        mBtnOkGet = findViewById(R.id.btn_ok_get);
+        mBtnOkPost = findViewById(R.id.btn_ok_post);
         mTvResult = findViewById(R.id.tv_result);
     }
 
     private void setListener() {
         mBtnGet.setOnClickListener(this);
         mBtnPost.setOnClickListener(this);
+        mBtnOkGet.setOnClickListener(this);
+        mBtnOkPost.setOnClickListener(this);
     }
 
     @Override
@@ -72,6 +82,7 @@ implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.btn_get:
                 // 原生OkHttp联网get请求文本数据
+                mTvResult.setText("");
                 getDataByGet();
                 break;
             case R.id.btn_post:
@@ -79,8 +90,72 @@ implements View.OnClickListener {
                 mTvResult.setText("");
                 getDataByPost();
                 break;
+            case R.id.btn_ok_get:
+                mTvResult.setText("");
+                getDateByOkGet();
+                break;
+            case R.id.btn_ok_post:
+                mTvResult.setText("");
+//                getDateByOkPost();
+                break;
             default:
                 break;
+        }
+    }
+
+    private void getDateByOkGet() {
+        String url = "http://www.zhiyun-tech.com/App/Rider-M/changelog-zh.txt";
+        url="http://api.m.mtime.cn/PageSubArea/TrailerList.api";
+        OkHttpUtils
+                .get()
+                .url(url)
+                .id(100)
+                .build()
+                .execute(new MyStringCallback());
+    }
+
+    public class MyStringCallback extends StringCallback
+    {
+        @Override
+        public void onBefore(Request request, int id)
+        {
+            setTitle("loading...");
+        }
+
+        @Override
+        public void onAfter(int id)
+        {
+            setTitle("Sample-okHttp");
+        }
+
+        @Override
+        public void onError(Call call, Exception e, int id)
+        {
+            e.printStackTrace();
+            mTvResult.setText("onError:" + e.getMessage());
+        }
+
+        @Override
+        public void onResponse(String response, int id)
+        {
+            Log.e(TAG, "onResponse：complete");
+            mTvResult.setText("onResponse:" + response);
+
+            switch (id)
+            {
+                case 100:
+                    Toast.makeText(OkHttpActivity.this, "http", Toast.LENGTH_SHORT).show();
+                    break;
+                case 101:
+                    Toast.makeText(OkHttpActivity.this, "https", Toast.LENGTH_SHORT).show();
+                    break;
+            }
+        }
+
+        @Override
+        public void inProgress(float progress, long total, int id)
+        {
+            Log.e(TAG, "inProgress:" + progress);
         }
     }
 
