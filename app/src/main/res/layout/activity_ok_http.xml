@@ -52,6 +52,12 @@
         android:layout_height="wrap_content"
         android:text="上传文件"
         android:textAllCaps="false"/>
+    <Button
+        android:id="@+id/btn_download_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="下载一张图片"
+        android:textAllCaps="false"/>
     <ProgressBar
         android:id="@+id/pb"
         style="?android:progressBarStyleHorizontal"
@@ -62,4 +68,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="显示请求数据"/>
+    <ImageView
+        android:id="@+id/iv_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 </LinearLayout>

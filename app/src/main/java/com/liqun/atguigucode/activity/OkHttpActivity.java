@@ -1,6 +1,7 @@
 package com.liqun.atguigucode.activity;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -8,12 +9,14 @@ import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.liqun.atguigucode.R;
 import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.BitmapCallback;
 import com.zhy.http.okhttp.callback.FileCallBack;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -61,7 +64,10 @@ implements View.OnClickListener {
     private Button mBtnOkPost;
     private Button mBtnDownloadFile;
     private Button mBtnUploadFile;
+    private Button mBtnDownloadImage;
     private ProgressBar mProgressBar;
+    private ImageView mIvIcon;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,8 +84,10 @@ implements View.OnClickListener {
         mBtnOkPost = findViewById(R.id.btn_ok_post);
         mBtnDownloadFile = findViewById(R.id.btn_download_file);
         mBtnUploadFile = findViewById(R.id.btn_upload_file);
+        mBtnDownloadImage = findViewById(R.id.btn_download_image);
         mProgressBar = findViewById(R.id.pb);
         mTvResult = findViewById(R.id.tv_result);
+        mIvIcon = findViewById(R.id.iv_icon);
     }
 
     private void setListener() {
@@ -89,6 +97,7 @@ implements View.OnClickListener {
         mBtnOkPost.setOnClickListener(this);
         mBtnDownloadFile.setOnClickListener(this);
         mBtnUploadFile.setOnClickListener(this);
+        mBtnDownloadImage.setOnClickListener(this);
     }
 
     @Override
@@ -118,9 +127,41 @@ implements View.OnClickListener {
             case R.id.btn_upload_file:
                 multiFileUpload();
                 break;
+            case R.id.btn_download_image:
+                getImage();
+                break;
             default:
                 break;
         }
+    }
+
+    public void getImage()
+    {
+        mTvResult.setText("");
+        String url = "http://images.csdn.net/20150817/1.jpg";
+        OkHttpUtils
+                .get()//
+                .url(url)//
+                .tag(this)//
+                .build()//
+                .connTimeOut(20000)
+                .readTimeOut(20000)
+                .writeTimeOut(20000)
+                .execute(new BitmapCallback()
+                {
+                    @Override
+                    public void onError(Call call, Exception e, int id)
+                    {
+                        mTvResult.setText("onError:" + e.getMessage());
+                    }
+
+                    @Override
+                    public void onResponse(Bitmap bitmap, int id)
+                    {
+                        Log.e("TAG", "onResponse：complete");
+                        mIvIcon.setImageBitmap(bitmap);
+                    }
+                });
     }
 
     public void multiFileUpload()
