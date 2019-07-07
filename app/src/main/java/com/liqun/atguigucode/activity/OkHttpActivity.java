@@ -2,18 +2,22 @@ package com.liqun.atguigucode.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.liqun.atguigucode.R;
 import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.FileCallBack;
 import com.zhy.http.okhttp.callback.StringCallback;
 
+import java.io.File;
 import java.io.IOException;
 
 import okhttp3.Call;
@@ -53,6 +57,8 @@ implements View.OnClickListener {
     };
     private Button mBtnOkGet;
     private Button mBtnOkPost;
+    private Button mBtnDownloadFile;
+    private ProgressBar mProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +73,8 @@ implements View.OnClickListener {
         mBtnPost = findViewById(R.id.btn_post);
         mBtnOkGet = findViewById(R.id.btn_ok_get);
         mBtnOkPost = findViewById(R.id.btn_ok_post);
+        mBtnDownloadFile = findViewById(R.id.btn_download_file);
+        mProgressBar = findViewById(R.id.pb);
         mTvResult = findViewById(R.id.tv_result);
     }
 
@@ -75,6 +83,7 @@ implements View.OnClickListener {
         mBtnPost.setOnClickListener(this);
         mBtnOkGet.setOnClickListener(this);
         mBtnOkPost.setOnClickListener(this);
+        mBtnDownloadFile.setOnClickListener(this);
     }
 
     @Override
@@ -98,9 +107,47 @@ implements View.OnClickListener {
                 mTvResult.setText("");
                 getDataByOkPost();
                 break;
+            case R.id.btn_download_file:
+                downloadFile();
+                break;
             default:
                 break;
         }
+    }
+
+    public void downloadFile() {
+        String url = "http://vfx.mtime.cn/Video/2016/07/24/mp4/160724055620533327_480.mp4";
+        OkHttpUtils//
+                .get()//
+                .url(url)//
+                .build()//
+                .execute(new FileCallBack(Environment.getExternalStorageDirectory().getAbsolutePath(), "http-utils-test.mp4")//
+                {
+
+                    @Override
+                    public void onBefore(Request request, int id)
+                    {
+                    }
+
+                    @Override
+                    public void inProgress(float progress, long total, int id)
+                    {
+                        mProgressBar.setProgress((int) (100 * progress));
+                        Log.e(TAG, "inProgress :" + (int) (100 * progress));
+                    }
+
+                    @Override
+                    public void onError(Call call, Exception e, int id)
+                    {
+                        Log.e(TAG, "onError :" + e.getMessage());
+                    }
+
+                    @Override
+                    public void onResponse(File file, int id)
+                    {
+                        Log.e(TAG, "onResponse :" + file.getAbsolutePath());
+                    }
+                });
     }
 
     private void getDataByOkPost() {
