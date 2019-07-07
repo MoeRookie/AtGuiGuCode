@@ -46,6 +46,12 @@
         android:layout_height="wrap_content"
         android:text="下载大文件"
         android:textAllCaps="false"/>
+    <Button
+        android:id="@+id/btn_upload_file"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="上传文件"
+        android:textAllCaps="false"/>
     <ProgressBar
         android:id="@+id/pb"
         style="?android:progressBarStyleHorizontal"

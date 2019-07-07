@@ -19,6 +19,8 @@ import com.zhy.http.okhttp.callback.StringCallback;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import okhttp3.Call;
 import okhttp3.MediaType;
@@ -58,6 +60,7 @@ implements View.OnClickListener {
     private Button mBtnOkGet;
     private Button mBtnOkPost;
     private Button mBtnDownloadFile;
+    private Button mBtnUploadFile;
     private ProgressBar mProgressBar;
 
     @Override
@@ -74,6 +77,7 @@ implements View.OnClickListener {
         mBtnOkGet = findViewById(R.id.btn_ok_get);
         mBtnOkPost = findViewById(R.id.btn_ok_post);
         mBtnDownloadFile = findViewById(R.id.btn_download_file);
+        mBtnUploadFile = findViewById(R.id.btn_upload_file);
         mProgressBar = findViewById(R.id.pb);
         mTvResult = findViewById(R.id.tv_result);
     }
@@ -84,6 +88,7 @@ implements View.OnClickListener {
         mBtnOkGet.setOnClickListener(this);
         mBtnOkPost.setOnClickListener(this);
         mBtnDownloadFile.setOnClickListener(this);
+        mBtnUploadFile.setOnClickListener(this);
     }
 
     @Override
@@ -110,9 +115,33 @@ implements View.OnClickListener {
             case R.id.btn_download_file:
                 downloadFile();
                 break;
+            case R.id.btn_upload_file:
+                multiFileUpload();
+                break;
             default:
                 break;
         }
+    }
+
+    public void multiFileUpload()
+    {
+        File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), "http-utils-test.mp4");
+        if (!file.exists())
+        {
+            Toast.makeText(OkHttpActivity.this, "文件不存在，请修改文件路径", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Map<String, String> params = new HashMap<>();
+        params.put("username", "张鸿洋");
+        params.put("password", "123");
+
+        String url = "http://10.185.1.71:8080/FileUpload/FileUploadServlet";
+        OkHttpUtils.post()//
+                .addFile("mFile", "server-http-utils-test.mp4", file)//
+                .url(url)
+                .params(params)//
+                .build()//
+                .execute(new MyStringCallback());
     }
 
     public void downloadFile() {
@@ -213,6 +242,7 @@ implements View.OnClickListener {
         @Override
         public void inProgress(float progress, long total, int id)
         {
+            mProgressBar.setProgress((int) (100 * progress));
             Log.e(TAG, "inProgress:" + progress);
         }
     }
