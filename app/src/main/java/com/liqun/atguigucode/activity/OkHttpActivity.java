@@ -92,18 +92,29 @@ implements View.OnClickListener {
                 break;
             case R.id.btn_ok_get:
                 mTvResult.setText("");
-                getDateByOkGet();
+                getDataByOkGet();
                 break;
             case R.id.btn_ok_post:
                 mTvResult.setText("");
-//                getDateByOkPost();
+                getDataByOkPost();
                 break;
             default:
                 break;
         }
     }
 
-    private void getDateByOkGet() {
+    private void getDataByOkPost() {
+        String url = "http://www.zhiyun-tech.com/App/Rider-M/changelog-zh.txt";
+        url="http://api.m.mtime.cn/PageSubArea/TrailerList.api";
+        OkHttpUtils
+                .post()
+                .url(url)
+                .id(100)
+                .build()
+                .execute(new MyStringCallback());
+    }
+
+    private void getDataByOkGet() {
         String url = "http://www.zhiyun-tech.com/App/Rider-M/changelog-zh.txt";
         url="http://api.m.mtime.cn/PageSubArea/TrailerList.api";
         OkHttpUtils
