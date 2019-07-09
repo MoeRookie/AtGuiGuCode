@@ -1,6 +1,7 @@
 package com.liqun.atguigucode.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Environment;
@@ -65,6 +66,7 @@ implements View.OnClickListener {
     private Button mBtnDownloadFile;
     private Button mBtnUploadFile;
     private Button mBtnDownloadImage;
+    private Button mBtnDownloadImages;
     private ProgressBar mProgressBar;
     private ImageView mIvIcon;
 
@@ -85,6 +87,7 @@ implements View.OnClickListener {
         mBtnDownloadFile = findViewById(R.id.btn_download_file);
         mBtnUploadFile = findViewById(R.id.btn_upload_file);
         mBtnDownloadImage = findViewById(R.id.btn_download_image);
+        mBtnDownloadImages = findViewById(R.id.btn_download_images);
         mProgressBar = findViewById(R.id.pb);
         mTvResult = findViewById(R.id.tv_result);
         mIvIcon = findViewById(R.id.iv_icon);
@@ -98,6 +101,7 @@ implements View.OnClickListener {
         mBtnDownloadFile.setOnClickListener(this);
         mBtnUploadFile.setOnClickListener(this);
         mBtnDownloadImage.setOnClickListener(this);
+        mBtnDownloadImages.setOnClickListener(this);
     }
 
     @Override
@@ -130,9 +134,17 @@ implements View.OnClickListener {
             case R.id.btn_download_image:
                 getImage();
                 break;
+            case R.id.btn_download_images:
+                enterNewsActivity();
+                break;
             default:
                 break;
         }
+    }
+
+    private void enterNewsActivity() {
+        Intent intent = NewsActivity.newIntent(this);
+        startActivity(intent);
     }
 
     public void getImage()

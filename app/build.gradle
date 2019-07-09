@@ -32,4 +32,5 @@ dependencies {
     implementation files('libs/okhttputils-2_6_2.jar')
     implementation files('libs/okhttp-3.14.0.jar')
     implementation files('libs/okio-1.15.0.jar')
+    implementation 'com.google.code.gson:gson:2.8.5'
 }
