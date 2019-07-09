@@ -79,7 +79,7 @@ public class NewsAdapter extends BaseAdapter {
                     @Override
                     public void onResponse(Bitmap bitmap, int id)
                     {
-                        Log.e("TAG", "onResponse：complete");
+                        Log.e("TAG", "onResponse：icon");
                         holder.ivIcon.setImageBitmap(bitmap);
                     }
                 });

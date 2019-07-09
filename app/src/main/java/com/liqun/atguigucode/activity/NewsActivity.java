@@ -3,6 +3,7 @@ package com.liqun.atguigucode.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
@@ -18,6 +19,7 @@ import com.liqun.atguigucode.R;
 import com.liqun.atguigucode.adapter.NewsAdapter;
 import com.liqun.atguigucode.domain.NewsBean;
 import com.liqun.atguigucode.domain.NewsBean.TrailersBean;
+import com.liqun.atguigucode.utils.CacheUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -28,7 +30,7 @@ import okhttp3.Call;
 import okhttp3.Request;
 
 public class NewsActivity extends AppCompatActivity {
-
+    private static final String CACHE_NEWS = "cache_news";
     private ProgressBar mPb;
     private ListView mLvNews;
     private TextView mTvEmpty;
@@ -66,6 +68,12 @@ public class NewsActivity extends AppCompatActivity {
     }
 
     private void loadNetWork() {
+        // [0]先从缓存中读取,取不到再请求网络
+        String json = CacheUtils.getString(getApplicationContext(), CACHE_NEWS);
+        if (!TextUtils.isEmpty(json)) {
+            updateLayout(json);
+            return;
+        }
         String url = "http://api.m.mtime.cn/PageSubArea/TrailerList.api";
         OkHttpUtils
                 .get()
@@ -101,22 +109,29 @@ public class NewsActivity extends AppCompatActivity {
         @Override
         public void onResponse(String response, int id)
         {
-            // [1]解析response获取到list
-            NewsBean newsBean = new Gson().fromJson(response, NewsBean.class);
-            // [2]获取视频信息列表
-            List<TrailersBean> newsList = newsBean.getTrailers();
-            // [2]清空全局list并添加上面list的所有并更新adapter
-            if (mNewsList.size() != 0) {
-                mNewsList.clear();
-            }
-            mNewsList.addAll(newsList);
-            mAdapter.notifyDataSetChanged();
+            Log.e("TAG", "onResponse：text");
+            // [0]缓存数据
+            CacheUtils.putString(getApplicationContext(),CACHE_NEWS,response);
+            updateLayout(response);
         }
 
         @Override
         public void inProgress(float progress, long total, int id)
         {
         }
+    }
+
+    private void updateLayout(String json) {
+        // [1]解析response获取到list
+        NewsBean newsBean = new Gson().fromJson(json, NewsBean.class);
+        // [2]获取视频信息列表
+        List<TrailersBean> newsList = newsBean.getTrailers();
+        // [2]清空全局list并添加上面list的所有并更新adapter
+        if (mNewsList.size() != 0) {
+            mNewsList.clear();
+        }
+        mNewsList.addAll(newsList);
+        mAdapter.notifyDataSetChanged();
     }
 
     private void setLayoutVisibility(boolean pb, boolean lv, boolean tv) {
