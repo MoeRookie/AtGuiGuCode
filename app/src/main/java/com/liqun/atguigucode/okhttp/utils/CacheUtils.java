@@ -1,4 +1,4 @@
-package com.liqun.atguigucode.utils;
+package com.liqun.atguigucode.okhttp.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;

@@ -1,4 +1,4 @@
-package com.liqun.atguigucode.domain;
+package com.liqun.atguigucode.okhttp.domain;
 
 import java.util.List;
 

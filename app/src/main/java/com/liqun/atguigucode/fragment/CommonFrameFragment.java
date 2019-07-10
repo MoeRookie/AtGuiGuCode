@@ -5,10 +5,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.liqun.atguigucode.R;
-import com.liqun.atguigucode.activity.OkHttpActivity;
+import com.liqun.atguigucode.okhttp.activity.OkHttpActivity;
 import com.liqun.atguigucode.adapter.CommonFrameFragmentAdapter;
 import com.liqun.atguigucode.base.BaseFragment;
 

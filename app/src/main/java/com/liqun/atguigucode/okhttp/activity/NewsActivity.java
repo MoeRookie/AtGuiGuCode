@@ -1,4 +1,4 @@
-package com.liqun.atguigucode.activity;
+package com.liqun.atguigucode.okhttp.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,17 +9,16 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.gson.Gson;
 import com.liqun.atguigucode.R;
-import com.liqun.atguigucode.adapter.NewsAdapter;
-import com.liqun.atguigucode.domain.NewsBean;
-import com.liqun.atguigucode.domain.NewsBean.TrailersBean;
-import com.liqun.atguigucode.utils.CacheUtils;
+import com.liqun.atguigucode.okhttp.adapter.NewsAdapter;
+import com.liqun.atguigucode.okhttp.domain.NewsBean;
+import com.liqun.atguigucode.okhttp.domain.NewsBean.TrailersBean;
+import com.liqun.atguigucode.okhttp.utils.CacheUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 

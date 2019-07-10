@@ -1,4 +1,4 @@
-package com.liqun.atguigucode.activity;
+package com.liqun.atguigucode.okhttp.activity;
 
 import android.app.Activity;
 import android.content.Intent;

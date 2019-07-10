@@ -1,4 +1,4 @@
-package com.liqun.atguigucode.adapter;
+package com.liqun.atguigucode.okhttp.adapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.liqun.atguigucode.R;
-import com.liqun.atguigucode.domain.NewsBean.TrailersBean;
+import com.liqun.atguigucode.okhttp.domain.NewsBean.TrailersBean;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.BitmapCallback;
 

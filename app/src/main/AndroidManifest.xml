@@ -21,8 +21,8 @@
         <activity android:name=".HomeActivity"
             android:configChanges="orientation|screenSize|keyboardHidden">
         </activity>
-        <activity android:name=".activity.OkHttpActivity"></activity>
-        <activity android:name=".activity.NewsActivity"></activity>
+        <activity android:name=".okhttp.activity.OkHttpActivity"></activity>
+        <activity android:name=".okhttp.activity.NewsActivity"></activity>
     </application>
 
 </manifest>
