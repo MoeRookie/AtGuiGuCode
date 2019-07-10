@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 /**
  * 1、软件框架搭建
  * 2、OkHttp
+ * 3、Json解析
  */
 public class SplashActivity extends AppCompatActivity {
 
