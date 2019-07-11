@@ -7,12 +7,17 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.liqun.atguigucode.R;
+import com.liqun.atguigucode.json.activity.NativeParseActivity;
 import com.liqun.atguigucode.okhttp.activity.OkHttpActivity;
 import com.liqun.atguigucode.adapter.CommonFrameFragmentAdapter;
 import com.liqun.atguigucode.base.BaseFragment;
 
 public class CommonFrameFragment extends BaseFragment {
     private static final String TAG = "CommonFrameFragment";
+    private static final String OKHTTP = "okhttp";
+    private static final String NATIVE_PARSE = "nativeparse";
+    private static final String GSON = "gson";
+    private static final String FAST_JSON = "fastjson";
     private String[] mDatas;
     private ListView mListView;
     private CommonFrameFragmentAdapter mAdapter;
@@ -26,9 +31,12 @@ public class CommonFrameFragment extends BaseFragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String data = mDatas[position];
-                if ("okhttp".equals(data.toLowerCase())) {
+                if (OKHTTP.equals(data.toLowerCase())) {
                     Intent intent = new Intent(mCtx, OkHttpActivity.class);
                     startActivity(intent);
+                } else if (NATIVE_PARSE.equals(data.toLowerCase())) {
+                    Intent intent = NativeParseActivity.newIntent(mCtx);
+                    mCtx.startActivity(intent);
                 }
             }
         });
@@ -40,9 +48,9 @@ public class CommonFrameFragment extends BaseFragment {
         Log.e(TAG, "常用框架页面的数据被初始化了");
         // 初始化数据
         mDatas = new String[]{
-                "OKHttp", "xUtils3","Retrofit2","Fresco",
+                "OKHttp", "NativeParse","Gson","FastJson","xUtils3","Retrofit2","Fresco",
                 "Glide","greenDao","RxJava","volley",
-                "Gson","FastJson","picasso","evenBus",
+                "picasso","evenBus",
                 "jcvideoplayer","pulltorefresh","Expandablelistview","UniversalVideoView",
                 "....."
         };

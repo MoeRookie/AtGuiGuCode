@@ -23,6 +23,8 @@
         </activity>
         <activity android:name=".okhttp.activity.OkHttpActivity"></activity>
         <activity android:name=".okhttp.activity.NewsActivity"></activity>
+        <activity android:name=".json.activity.NativeParseActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
     </application>
 
 </manifest>
