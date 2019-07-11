@@ -14,8 +14,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.liqun.atguigucode.R;
 import com.liqun.atguigucode.json.bean.ShopBean;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 /**
  * （1）将json格式的字符串{}转换为Java对象
@@ -72,6 +75,7 @@ public class NativeParseActivity extends AppCompatActivity implements View.OnCli
                 break;
             // 将json格式的字符串[]转换为Java对象的List
             case R.id.btn_arr_list:
+                arrToListNative();
                 break;
             // 复杂json数据解析
             case R.id.btn_complex:
@@ -80,6 +84,45 @@ public class NativeParseActivity extends AppCompatActivity implements View.OnCli
             case R.id.btn_special:
                 break;
         }
+    }
+
+    private void arrToListNative() {
+        // [1]获取或创建JSON数据
+        String json = "[\n" +
+                "    {\n" +
+                "        \"id\": 1,\n" +
+                "        \"imagePath\": \"http://192.168.10.165:8080/f1.jpg\",\n" +
+                "        \"name\": \"大虾1\",\n" +
+                "        \"price\": 12.3\n" +
+                "    },\n" +
+                "    {\n" +
+                "        \"id\": 2,\n" +
+                "        \"imagePath\": \"http://192.168.10.165:8080/f2.jpg\",\n" +
+                "        \"name\": \"大虾2\",\n" +
+                "        \"price\": 12.5\n" +
+                "    }\n" +
+                "]";
+        // [2]解析json
+        ArrayList<ShopBean> shopList = new ArrayList<>();
+        try {
+            JSONArray jsonArr = new JSONArray(json);
+            for (int i = 0; i < jsonArr.length(); i++) {
+                JSONObject jsonObj = jsonArr.getJSONObject(i);
+                if (jsonObj != null) {
+                    int id = jsonObj.optInt("id");
+                    String name = jsonObj.optString("name");
+                    double price = jsonObj.optDouble("price");
+                    String imagePath = jsonObj.optString("imagePath");
+                    ShopBean shop = new ShopBean(id, name, price, imagePath);
+                    shopList.add(shop);
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        // [3]显示JSON数据
+        mTvOriginal.setText(json);
+        mTvTransformed.setText(shopList.toString());
     }
 
     private void jsonToObjByNative() {
