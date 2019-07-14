@@ -1,5 +1,6 @@
 package com.liqun.atguigucode.json.activity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -31,7 +32,7 @@ import java.util.ArrayList;
  * （3）复杂json数据解析
  * （4）特殊json数据解析
  */
-public class NativeParseActivity extends AppCompatActivity implements View.OnClickListener {
+public class NativeParseActivity extends Activity implements View.OnClickListener {
     private TextView mTvTitle;
     private Button mBtnJsonObj;
     private Button mBtnArrList;

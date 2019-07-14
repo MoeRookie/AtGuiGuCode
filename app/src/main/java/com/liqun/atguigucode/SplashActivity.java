@@ -1,17 +1,16 @@
 package com.liqun.atguigucode;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * 1、软件框架搭建
  * 2、OkHttp
  * 3、Json解析
  */
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
