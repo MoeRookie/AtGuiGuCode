@@ -15,6 +15,8 @@ import com.liqun.atguigucode.R;
 import com.liqun.atguigucode.json.bean.DataInfo;
 import com.liqun.atguigucode.json.bean.DataInfo.DataBean;
 import com.liqun.atguigucode.json.bean.DataInfo.DataBean.ItemsBean;
+import com.liqun.atguigucode.json.bean.FilmInfo;
+import com.liqun.atguigucode.json.bean.FilmInfo.FilmBean;
 import com.liqun.atguigucode.json.bean.ShopBean;
 
 import org.json.JSONArray;
@@ -86,8 +88,66 @@ public class NativeParseActivity extends AppCompatActivity implements View.OnCli
                 break;
             // 特殊json数据解析
             case R.id.btn_special:
+                specialNative();
                 break;
         }
+    }
+
+    private void specialNative() {
+        // [1]获取或创建JSON数据
+        String json = "{\n" +
+                "    \"code\": 0,\n" +
+                "    \"list\": {\n" +
+                "        \"0\": {\n" +
+                "            \"aid\": \"6008965\",\n" +
+                "            \"author\": \"哔哩哔哩番剧\",\n" +
+                "            \"coins\": 170,\n" +
+                "            \"copyright\": \"Copy\",\n" +
+                "            \"create\": \"2016-08-25 21:34\"\n" +
+                "        },\n" +
+                "        \"1\": {\n" +
+                "            \"aid\": \"6008938\",\n" +
+                "            \"author\": \"哔哩哔哩番剧\",\n" +
+                "            \"coins\": 404,\n" +
+                "            \"copyright\": \"Copy\",\n" +
+                "            \"create\": \"2016-08-25 21:33\"\n" +
+                "        }\n" +
+                "    }\n" +
+                "}";
+        // [2]解析json
+        FilmInfo info = new FilmInfo();
+        try {
+            JSONObject jsonObj = new JSONObject(json);
+            // 第一层解析
+            int code = jsonObj.optInt("code");
+            JSONObject list = jsonObj.optJSONObject("list");
+            info.setCode(code);
+            ArrayList<FilmBean> filmList = new ArrayList<>();
+            info.setList(filmList);
+            // 第二层解析
+            for (int i = 0; i < list.length(); i++) {
+                JSONObject jsonObj1 = list.optJSONObject(Integer.toString(i));
+                if (jsonObj1 != null) {
+                    String aid = jsonObj1.optString("aid");
+                    String author = jsonObj1.optString("author");
+                    int coins = jsonObj1.optInt("coins");
+                    String copyright = jsonObj1.optString("copyright");
+                    String create = jsonObj1.optString("create");
+                    FilmBean film = new FilmBean();
+                    film.setAid(aid);
+                    film.setAuthor(author);
+                    film.setCoins(coins);
+                    film.setCopyright(copyright);
+                    film.setCreate(create);
+                    filmList.add(film);
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        // [3]显示JSON数据
+        mTvOriginal.setText(json);
+        mTvTransformed.setText(info.toString());
     }
 
     private void complexNative() {
@@ -142,12 +202,14 @@ public class NativeParseActivity extends AppCompatActivity implements View.OnCli
             // 第三层解析
             for (int i = 0; i < items.length(); i++) {
                 JSONObject jsonObj1 = items.optJSONObject(i);
-                ItemsBean itemsBean = new ItemsBean();
-                int id = jsonObj1.optInt("id");
-                String title = jsonObj1.optString("title");
-                itemsBean.setId(id);
-                itemsBean.setTitle(title);
-                itemList.add(itemsBean);
+                if (jsonObj1 != null) {
+                    int id = jsonObj1.optInt("id");
+                    String title = jsonObj1.optString("title");
+                    ItemsBean itemsBean = new ItemsBean();
+                    itemsBean.setId(id);
+                    itemsBean.setTitle(title);
+                    itemList.add(itemsBean);
+                }
             }
         } catch (JSONException e) {
             e.printStackTrace();
