@@ -32,28 +32,37 @@
         android:text="特殊Json数据解析"
         android:textSize="18sp"
         android:textAllCaps="false"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:text="原始数据"
-        android:textSize="18sp"
-        android:textColor="@android:color/holo_blue_light"/>
-    <TextView
-        android:id="@+id/tv_original"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@android:color/darker_gray"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:text="转换后的数据"
-        android:textSize="18sp"
-        android:textColor="@android:color/holo_blue_light"/>
-    <TextView
-        android:id="@+id/tv_transformed"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@android:color/darker_gray"/>
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="原始数据"
+                android:textSize="18sp"
+                android:textColor="@android:color/holo_blue_light"/>
+            <TextView
+                android:id="@+id/tv_original"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/darker_gray"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="转换后的数据"
+                android:textSize="18sp"
+                android:textColor="@android:color/holo_blue_light"/>
+            <TextView
+                android:id="@+id/tv_transformed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/darker_gray"/>
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

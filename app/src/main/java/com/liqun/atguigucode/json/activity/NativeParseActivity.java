@@ -12,6 +12,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.liqun.atguigucode.R;
+import com.liqun.atguigucode.json.bean.DataInfo;
+import com.liqun.atguigucode.json.bean.DataInfo.DataBean;
+import com.liqun.atguigucode.json.bean.DataInfo.DataBean.ItemsBean;
 import com.liqun.atguigucode.json.bean.ShopBean;
 
 import org.json.JSONArray;
@@ -79,11 +82,79 @@ public class NativeParseActivity extends AppCompatActivity implements View.OnCli
                 break;
             // 复杂json数据解析
             case R.id.btn_complex:
+                complexNative();
                 break;
             // 特殊json数据解析
             case R.id.btn_special:
                 break;
         }
+    }
+
+    private void complexNative() {
+        // [1]获取或创建JSON数据
+        String json = "{\n" +
+                "    \"data\": {\n" +
+                "        \"count\": 5,\n" +
+                "        \"items\": [\n" +
+                "            {\n" +
+                "                \"id\": 45,\n" +
+                "                \"title\": \"坚果\"\n" +
+                "            },\n" +
+                "            {\n" +
+                "                \"id\": 132,\n" +
+                "                \"title\": \"炒货\"\n" +
+                "            },\n" +
+                "            {\n" +
+                "                \"id\": 166,\n" +
+                "                \"title\": \"蜜饯\"\n" +
+                "            },\n" +
+                "            {\n" +
+                "                \"id\": 195,\n" +
+                "                \"title\": \"果脯\"\n" +
+                "            },\n" +
+                "            {\n" +
+                "                \"id\": 196,\n" +
+                "                \"title\": \"礼盒\"\n" +
+                "            }\n" +
+                "        ]\n" +
+                "    },\n" +
+                "    \"rs_code\": \"1000\",\n" +
+                "    \"rs_msg\": \"success\"\n" +
+                "}";
+        // [2]解析json
+        DataInfo infoBean = new DataInfo();
+        try {
+            JSONObject jsonObj = new JSONObject(json);
+            // 第一层解析
+            JSONObject data = jsonObj.optJSONObject("data");
+            String rsCode = jsonObj.optString("rs_code");
+            String rsMsg = jsonObj.optString("rs_msg");
+            infoBean.setRs_code(rsCode);
+            infoBean.setRs_msg(rsMsg);
+            DataBean dataBean = new DataBean();
+            infoBean.setData(dataBean);
+            // 第二层解析
+            int count = data.optInt("count");
+            JSONArray items = data.optJSONArray("items");
+            dataBean.setCount(count);
+            ArrayList<ItemsBean> itemList = new ArrayList<>();
+            dataBean.setItems(itemList);
+            // 第三层解析
+            for (int i = 0; i < items.length(); i++) {
+                JSONObject jsonObj1 = items.optJSONObject(i);
+                ItemsBean itemsBean = new ItemsBean();
+                int id = jsonObj1.optInt("id");
+                String title = jsonObj1.optString("title");
+                itemsBean.setId(id);
+                itemsBean.setTitle(title);
+                itemList.add(itemsBean);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        // [3]显示JSON数据
+        mTvOriginal.setText(json);
+        mTvTransformed.setText(infoBean.toString());
     }
 
     private void arrToListNative() {
