@@ -1,15 +1,15 @@
 package com.liqun.atguigucode.json.bean;
 
-public class ShopBean {
+public class ShopInfo {
     private int id;
     private String name;
     private double price;
     private String imagePath;
 
-    public ShopBean() {
+    public ShopInfo() {
     }
 
-    public ShopBean(int id, String name, double price, String imagePath) {
+    public ShopInfo(int id, String name, double price, String imagePath) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -50,7 +50,7 @@ public class ShopBean {
 
     @Override
     public String toString() {
-        return "ShopBean{" +
+        return "ShopInfo{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", price=" + price +

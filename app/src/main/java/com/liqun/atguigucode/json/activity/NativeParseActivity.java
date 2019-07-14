@@ -4,13 +4,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.liqun.atguigucode.R;
 import com.liqun.atguigucode.json.bean.DataInfo;
@@ -18,7 +16,7 @@ import com.liqun.atguigucode.json.bean.DataInfo.DataBean;
 import com.liqun.atguigucode.json.bean.DataInfo.DataBean.ItemsBean;
 import com.liqun.atguigucode.json.bean.FilmInfo;
 import com.liqun.atguigucode.json.bean.FilmInfo.FilmBean;
-import com.liqun.atguigucode.json.bean.ShopBean;
+import com.liqun.atguigucode.json.bean.ShopInfo;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -237,7 +235,7 @@ public class NativeParseActivity extends Activity implements View.OnClickListene
                 "    }\n" +
                 "]";
         // [2]解析json
-        ArrayList<ShopBean> shopList = new ArrayList<>();
+        ArrayList<ShopInfo> shopList = new ArrayList<>();
         try {
             JSONArray jsonArr = new JSONArray(json);
             for (int i = 0; i < jsonArr.length(); i++) {
@@ -247,7 +245,7 @@ public class NativeParseActivity extends Activity implements View.OnClickListene
                     String name = jsonObj.optString("name");
                     double price = jsonObj.optDouble("price");
                     String imagePath = jsonObj.optString("imagePath");
-                    ShopBean shop = new ShopBean(id, name, price, imagePath);
+                    ShopInfo shop = new ShopInfo(id, name, price, imagePath);
                     shopList.add(shop);
                 }
             }
@@ -266,7 +264,7 @@ public class NativeParseActivity extends Activity implements View.OnClickListene
                 "\t\"price\":12.3, \n" +
                 "\t\"imagePath\":\"http://192.168.10.165:8080/L05_Server/images/f1.jpg\"\n" +
                 "}";
-        ShopBean shop = null;
+        ShopInfo shop = null;
         try {
             // [2]解析json
             JSONObject jsonObj = new JSONObject(json);
@@ -274,7 +272,7 @@ public class NativeParseActivity extends Activity implements View.OnClickListene
             String name = jsonObj.optString("name");
             double price = jsonObj.optDouble("price");
             String imagePath = jsonObj.optString("imagePath");
-            shop = new ShopBean(id, name, price, imagePath);
+            shop = new ShopInfo(id, name, price, imagePath);
         } catch (JSONException e) {
             e.printStackTrace();
         }

@@ -8,7 +8,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.liqun.atguigucode.R;
+import com.liqun.atguigucode.json.bean.ShopInfo;
 
 public class GsonActivity extends Activity implements View.OnClickListener {
 
@@ -51,6 +53,7 @@ public class GsonActivity extends Activity implements View.OnClickListener {
         switch (view.getId()) {
             // （1）将json格式的字符串{}转换为Java对象
             case R.id.btn_json_obj:
+                jsonToObjByGson();
                 break;
             // （2）将json格式的字符串[]转换为Java对象的List
             case R.id.btn_arr_list:
@@ -62,5 +65,20 @@ public class GsonActivity extends Activity implements View.OnClickListener {
             case R.id.btn_list_arr:
                 break;
         }
+    }
+
+    private void jsonToObjByGson() {
+        // [1]获取或创建json
+        String json = "{\n" +
+                "\t\"id\":2, \"name\":\"大虾\", \n" +
+                "\t\"price\":12.3, \n" +
+                "\t\"imagePath\":\"http://192.168.10.165:8080/L05_Server/images/f1.jpg\"\n" +
+                "}";
+        // [2]json解析
+        Gson gson = new Gson();
+        ShopInfo info = gson.fromJson(json, ShopInfo.class);
+        // [3]显示json数据
+        mTvOriginal.setText(json);
+        mTvTransformed.setText(info.toString());
     }
 }
