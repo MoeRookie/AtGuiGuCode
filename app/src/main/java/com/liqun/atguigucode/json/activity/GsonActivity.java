@@ -64,11 +64,23 @@ public class GsonActivity extends Activity implements View.OnClickListener {
                 break;
             // （3）将Java对象转换为json字符串{}
             case R.id.btn_obj_json:
+                objToJsonByGson();
                 break;
             // （4）将Java对象的List转换为json字符串[]
             case R.id.btn_list_arr:
                 break;
         }
+    }
+
+    private void objToJsonByGson() {
+        // [1]获取或创建Java对象
+        ShopInfo shop = new ShopInfo(110, "鲍鱼", 250.0, "baoyu.jpg");
+        // [2]生成json
+        Gson gson = new Gson();
+        String json = gson.toJson(shop);
+        // [3]展示json数据
+        mTvOriginal.setText(shop.toString());
+        mTvTransformed.setText(json);
     }
 
     private void arrToListByGson() {
