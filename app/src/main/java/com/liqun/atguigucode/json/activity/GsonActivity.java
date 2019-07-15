@@ -13,6 +13,7 @@ import com.google.gson.reflect.TypeToken;
 import com.liqun.atguigucode.R;
 import com.liqun.atguigucode.json.bean.ShopInfo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GsonActivity extends Activity implements View.OnClickListener {
@@ -68,8 +69,24 @@ public class GsonActivity extends Activity implements View.OnClickListener {
                 break;
             // （4）将Java对象的List转换为json字符串[]
             case R.id.btn_list_arr:
+                listToArrByGson();
                 break;
         }
+    }
+
+    private void listToArrByGson() {
+        // [1]获取或创建Java集合
+        ArrayList<ShopInfo> shopList = new ArrayList<>();
+        ShopInfo fish = new ShopInfo(110, "鲍鱼", 250.0, "baoyu.jpg");
+        ShopInfo shrimp = new ShopInfo(120, "龙虾", 251.0, "longxia.jpg");
+        shopList.add(fish);
+        shopList.add(shrimp);
+        // [2]生成json
+        Gson gson = new Gson();
+        String json = gson.toJson(shopList);
+        // [3]展示json数据
+        mTvOriginal.setText(shopList.toString());
+        mTvTransformed.setText(json);
     }
 
     private void objToJsonByGson() {
