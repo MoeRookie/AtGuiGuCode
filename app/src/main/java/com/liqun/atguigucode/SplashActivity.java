@@ -9,6 +9,8 @@ import android.os.Bundle;
  * 1、软件框架搭建
  * 2、OkHttp
  * 3、Json解析
+ * 4、Gson解析
+ * 5、Fastjson解析
  */
 public class SplashActivity extends Activity {
 
