@@ -13,6 +13,7 @@ import com.liqun.atguigucode.json.activity.NativeParseActivity;
 import com.liqun.atguigucode.okhttp.activity.OkHttpActivity;
 import com.liqun.atguigucode.adapter.CommonFrameFragmentAdapter;
 import com.liqun.atguigucode.base.BaseFragment;
+import com.liqun.atguigucode.xutils3.XUtils3MainActivity;
 
 public class CommonFrameFragment extends BaseFragment {
     private static final String TAG = "CommonFrameFragment";
@@ -20,6 +21,7 @@ public class CommonFrameFragment extends BaseFragment {
     private static final String NATIVE_PARSE = "nativeparse";
     private static final String GSON = "gson";
     private static final String FAST_JSON = "fastjson";
+    private static final String X_UTILS_3 = "xutils3";
     private String[] mDatas;
     private ListView mListView;
     private CommonFrameFragmentAdapter mAdapter;
@@ -44,6 +46,9 @@ public class CommonFrameFragment extends BaseFragment {
                     startActivity(intent);
                 } else if (FAST_JSON.equals(data.toLowerCase())) {
                     Intent intent = FastJsonActivity.newIntent(mCtx);
+                    startActivity(intent);
+                } else if (X_UTILS_3.equals(data.toLowerCase())) {
+                    Intent intent = XUtils3MainActivity.newIntent(mCtx);
                     startActivity(intent);
                 }
             }
