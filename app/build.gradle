@@ -29,9 +29,14 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    // okhttp
     implementation files('libs/okhttputils-2_6_2.jar')
     implementation files('libs/okhttp-3.14.0.jar')
     implementation files('libs/okio-1.15.0.jar')
+    // gson
     implementation 'com.google.code.gson:gson:2.8.5'
+    // fastjson
     implementation 'com.alibaba:fastjson:1.1.71.android'
+    // xutils3
+    implementation 'org.xutils:xutils:3.5.1'
 }
