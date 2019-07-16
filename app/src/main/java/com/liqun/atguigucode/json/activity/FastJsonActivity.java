@@ -8,7 +8,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.liqun.atguigucode.R;
+import com.liqun.atguigucode.json.bean.ShopInfo;
 
 public class FastJsonActivity extends Activity implements View.OnClickListener {
 
@@ -51,6 +53,7 @@ public class FastJsonActivity extends Activity implements View.OnClickListener {
         switch (view.getId()) {
             // （1）将json格式的字符串{}转换为Java对象
             case R.id.btn_json_obj:
+                jsonToObjByFastJson();
                 break;
             // （2）将json格式的字符串[]转换为Java对象的List
             case R.id.btn_arr_list:
@@ -62,5 +65,19 @@ public class FastJsonActivity extends Activity implements View.OnClickListener {
             case R.id.btn_list_arr:
                 break;
         }
+    }
+
+    private void jsonToObjByFastJson() {
+        // [1]获取或创建json数据
+        String json = "{\n" +
+                "\t\"id\":2, \"name\":\"大虾\", \n" +
+                "\t\"price\":12.3, \n" +
+                "\t\"imagePath\":\"http://192.168.10.165:8080/L05_Server/images/f1.jpg\"\n" +
+                "}";
+        // [2]解析json数据
+        ShopInfo shop = JSON.parseObject(json, ShopInfo.class);
+        // [3]显示json数据
+        mTvOriginal.setText(json);
+        mTvTransformed.setText(shop.toString());
     }
 }
