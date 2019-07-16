@@ -63,11 +63,22 @@ public class FastJsonActivity extends Activity implements View.OnClickListener {
                 break;
             // （3）将Java对象转换为json字符串{}
             case R.id.btn_obj_json:
+                objToJsonByFastJson();
                 break;
             // （4）将Java对象的List转换为json字符串[]
             case R.id.btn_list_arr:
                 break;
         }
+    }
+
+    private void objToJsonByFastJson() {
+        // [1]获取或创建Java对象
+        ShopInfo fish = new ShopInfo(110, "鲍鱼", 250.0, "baoyu.jpg");
+        // [2]生成json数据
+        String json = JSON.toJSONString(fish);
+        // [3]显示json数据
+        mTvOriginal.setText(fish.toString());
+        mTvTransformed.setText(json);
     }
 
     private void arrToListByFastJson() {
