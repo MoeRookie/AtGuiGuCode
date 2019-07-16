@@ -7,6 +7,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.liqun.atguigucode.R;
+import com.liqun.atguigucode.json.activity.FastJsonActivity;
 import com.liqun.atguigucode.json.activity.GsonActivity;
 import com.liqun.atguigucode.json.activity.NativeParseActivity;
 import com.liqun.atguigucode.okhttp.activity.OkHttpActivity;
@@ -40,6 +41,9 @@ public class CommonFrameFragment extends BaseFragment {
                     startActivity(intent);
                 } else if (GSON.equals(data.toLowerCase())) {
                     Intent intent = GsonActivity.newIntent(mCtx);
+                    startActivity(intent);
+                } else if (FAST_JSON.equals(data.toLowerCase())) {
+                    Intent intent = FastJsonActivity.newIntent(mCtx);
                     startActivity(intent);
                 }
             }

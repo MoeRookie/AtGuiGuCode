@@ -25,6 +25,7 @@
         <activity android:name=".okhttp.activity.NewsActivity"></activity>
         <activity android:name=".json.activity.NativeParseActivity"></activity>
         <activity android:name=".json.activity.GsonActivity"></activity>
+        <activity android:name=".json.activity.FastJsonActivity"></activity>
     </application>
 
 </manifest>
