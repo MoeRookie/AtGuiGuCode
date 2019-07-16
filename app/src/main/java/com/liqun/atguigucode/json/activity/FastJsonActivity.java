@@ -12,6 +12,7 @@ import com.alibaba.fastjson.JSON;
 import com.liqun.atguigucode.R;
 import com.liqun.atguigucode.json.bean.ShopInfo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FastJsonActivity extends Activity implements View.OnClickListener {
@@ -67,8 +68,23 @@ public class FastJsonActivity extends Activity implements View.OnClickListener {
                 break;
             // （4）将Java对象的List转换为json字符串[]
             case R.id.btn_list_arr:
+                listToArrByFastJson();
                 break;
         }
+    }
+
+    private void listToArrByFastJson() {
+        // [1]获取或创建Java集合
+        ArrayList<ShopInfo> shopList = new ArrayList<>();
+        ShopInfo fish = new ShopInfo(110, "鲍鱼", 250.0, "baoyu.jpg");
+        ShopInfo shrimp = new ShopInfo(120, "龙虾", 251.0, "longxia.jpg");
+        shopList.add(fish);
+        shopList.add(shrimp);
+        // [2]生成json数据
+        String json = JSON.toJSONString(shopList);
+        // [3]显示json数据
+        mTvOriginal.setText(shopList.toString());
+        mTvTransformed.setText(json);
     }
 
     private void objToJsonByFastJson() {
