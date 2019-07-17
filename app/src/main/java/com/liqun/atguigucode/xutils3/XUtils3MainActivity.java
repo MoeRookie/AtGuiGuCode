@@ -9,6 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.liqun.atguigucode.R;
+import com.liqun.atguigucode.xutils3.annotation.FragmentXUtils3Activity;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
@@ -34,7 +35,8 @@ public class XUtils3MainActivity extends Activity {
     private void onClick(View view){
         switch (view.getId()) {
             case R.id.btn_annotation:
-                Toast.makeText(this, "xUtils3注解模块", Toast.LENGTH_SHORT).show();
+                Intent intent = FragmentXUtils3Activity.newIntent(XUtils3MainActivity.this);
+                startActivity(intent);
                 break;
             case R.id.btn_net:
                 Toast.makeText(this, "xUtils3联网模块", Toast.LENGTH_SHORT).show();

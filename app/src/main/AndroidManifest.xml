@@ -28,6 +28,7 @@
         <activity android:name=".json.activity.GsonActivity"></activity>
         <activity android:name=".json.activity.FastJsonActivity"></activity>
         <activity android:name=".xutils3.XUtils3MainActivity"></activity>
+        <activity android:name=".xutils3.annotation.FragmentXUtils3Activity"/>
     </application>
 
 </manifest>
