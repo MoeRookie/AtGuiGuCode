@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.liqun.atguigucode.R;
 import com.liqun.atguigucode.xutils3.annotation.FragmentXUtils3Activity;
+import com.liqun.atguigucode.xutils3.net.XUtils3NetActivity;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
@@ -39,7 +40,8 @@ public class XUtils3MainActivity extends Activity {
                 startActivity(intent);
                 break;
             case R.id.btn_net:
-                Toast.makeText(this, "xUtils3联网模块", Toast.LENGTH_SHORT).show();
+                intent = XUtils3NetActivity.newIntent(XUtils3MainActivity.this);
+                startActivity(intent);
                 break;
             case R.id.btn_image:
                 Toast.makeText(this, "xUtils3加载单张图片", Toast.LENGTH_SHORT).show();
