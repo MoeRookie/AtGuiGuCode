@@ -7,6 +7,8 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.liqun.atguigucode.R;
 
@@ -28,5 +30,14 @@ public class FragmentXUtils3Activity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         x.view().inject(this);
         mTvTitle.setText("在Fragment中使用注解");
+
+        // 获取fragmentManager
+        FragmentManager fm = getSupportFragmentManager();
+        // 开启事务
+        FragmentTransaction transaction = fm.beginTransaction();
+        // 替换显示目标fragment
+        transaction.replace(R.id.fl_content,new DemoFragment());
+        // 提交事务
+        transaction.commit();
     }
 }
