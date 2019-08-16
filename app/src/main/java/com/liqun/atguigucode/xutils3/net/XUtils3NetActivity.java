@@ -60,9 +60,59 @@ public class XUtils3NetActivity extends Activity {
                 downloadFile();
                 break;
             case R.id.btn_upload_file:
-                Toast.makeText(this, "大文件上传", Toast.LENGTH_SHORT).show();
+                uploadFile();
                 break;
         }
+    }
+
+    private void uploadFile() {
+        RequestParams params = new RequestParams("http://192.168.1.110:8080/FileUpload/FileUploadServlet");
+        // 设置使用表单上传文件
+        params.setMultipart(true);
+        // 添加要上传的文件
+        params.addBodyParameter("File",new File(Environment.getExternalStorageDirectory()+"/atguigu/480.mp4"),null,"oppo.mp4");
+        x.http().post(params, new Callback.ProgressCallback<File>() {
+            /**
+             * 当下载成功的时候回调这个方法,并把下载到哪个路径回传过来
+             * @param file
+             */
+            @Override
+            public void onSuccess(File file) {
+                Log.e(TAG, "onSuccess: " + file.toString());
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                Log.e(TAG, "onError: " + ex.getMessage());
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+                Log.e(TAG, "onCancelled: " + cex.getMessage());
+            }
+
+            @Override
+            public void onFinished() {
+                Log.e(TAG, "onFinished: ");
+            }
+
+            @Override
+            public void onWaiting() {
+                Log.e(TAG, "onWaiting: ");
+            }
+
+            @Override
+            public void onStarted() {
+                Log.e(TAG, "onStarted: ");
+            }
+
+            @Override
+            public void onLoading(long total, long current, boolean isDownloading) {
+                mPb.setMax((int) total);
+                mPb.setProgress((int) current);
+                Log.e(TAG, "onLoading: " + current + "/" + total + " " + isDownloading);
+            }
+        });
     }
 
     private void downloadFile() {
