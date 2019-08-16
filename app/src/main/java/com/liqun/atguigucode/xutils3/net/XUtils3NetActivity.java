@@ -76,6 +76,8 @@ public class XUtils3NetActivity extends Activity {
         params.setCancelFast(true);
         // 设置不要自动根据头信息命名
         params.setAutoRename(false);
+        // 设置可断点续传
+        params.setAutoResume(true);
         // 设置自定义线程池(有效的值范围[1, 3], 设置为 3 时, 可能阻塞图片加载.)
         params.setExecutor(new PriorityExecutor(3, true));
         x.http().get(params, new Callback.ProgressCallback<File>() {
