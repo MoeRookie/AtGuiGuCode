@@ -15,8 +15,10 @@ import net.tsz.afinal.FinalBitmap;
 import net.tsz.afinal.FinalHttp;
 import net.tsz.afinal.annotation.view.ViewInject;
 import net.tsz.afinal.http.AjaxCallBack;
+import net.tsz.afinal.http.AjaxParams;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 
 public class AFinalActivity extends FinalActivity {
     @ViewInject(id = R.id.tv_title)
@@ -115,6 +117,34 @@ public class AFinalActivity extends FinalActivity {
 
     // 文件上传
     public void onBtnUploadClicked(View view){
-        Toast.makeText(this, "文件上传", Toast.LENGTH_SHORT).show();
+        FinalHttp http = new FinalHttp();
+        // 文件上传到服务器的位置
+        String url = "http://192.168.1.110:8080/FileUpload/FileUploadServlet";
+        AjaxParams params = new AjaxParams();
+        // 设置要上传的本地资源
+        try {
+            params.put("File",new File(getFilesDir()+"/afinal_music.mp4"));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        http.post(url, params, new AjaxCallBack<Object>() {
+            @Override
+            public void onStart() {
+                mTvResult.setText("开始上传");
+                super.onStart();
+            }
+
+            @Override
+            public void onSuccess(Object o) {
+                mTvResult.setText("上传成功");
+                super.onSuccess(o);
+            }
+
+            @Override
+            public void onFailure(Throwable t, int errorNo, String strMsg) {
+                mTvResult.setText("上传失败");
+                super.onFailure(t, errorNo, strMsg);
+            }
+        });
     }
 }
