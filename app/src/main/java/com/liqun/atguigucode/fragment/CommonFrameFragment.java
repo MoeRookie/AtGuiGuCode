@@ -7,6 +7,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.liqun.atguigucode.R;
+import com.liqun.atguigucode.afinal.AFinalActivity;
 import com.liqun.atguigucode.json.activity.FastJsonActivity;
 import com.liqun.atguigucode.json.activity.GsonActivity;
 import com.liqun.atguigucode.json.activity.NativeParseActivity;
@@ -22,6 +23,7 @@ public class CommonFrameFragment extends BaseFragment {
     private static final String GSON = "gson";
     private static final String FAST_JSON = "fastjson";
     private static final String X_UTILS_3 = "xutils3";
+    private static final String A_FINAL = "afinal";
     private String[] mDatas;
     private ListView mListView;
     private CommonFrameFragmentAdapter mAdapter;
@@ -50,6 +52,9 @@ public class CommonFrameFragment extends BaseFragment {
                 } else if (X_UTILS_3.equals(data.toLowerCase())) {
                     Intent intent = XUtils3MainActivity.newIntent(mCtx);
                     startActivity(intent);
+                } else if (A_FINAL.equals(data.toLowerCase())) {
+                    Intent intent = AFinalActivity.newIntent(mCtx);
+                    startActivity(intent);
                 }
             }
         });
@@ -61,7 +66,7 @@ public class CommonFrameFragment extends BaseFragment {
         Log.e(TAG, "常用框架页面的数据被初始化了");
         // 初始化数据
         mDatas = new String[]{
-                "OKHttp", "NativeParse","Gson","FastJson","xUtils3","Retrofit2","Fresco",
+                "OKHttp", "NativeParse","Gson","FastJson","xUtils3","Afinal","Retrofit2","Fresco",
                 "Glide","greenDao","RxJava","volley",
                 "picasso","evenBus",
                 "jcvideoplayer","pulltorefresh","Expandablelistview","UniversalVideoView",
