@@ -12,7 +12,9 @@ import com.liqun.atguigucode.R;
 
 import net.tsz.afinal.FinalActivity;
 import net.tsz.afinal.FinalBitmap;
+import net.tsz.afinal.FinalHttp;
 import net.tsz.afinal.annotation.view.ViewInject;
+import net.tsz.afinal.http.AjaxCallBack;
 
 public class AFinalActivity extends FinalActivity {
     @ViewInject(id = R.id.tv_title)
@@ -57,7 +59,28 @@ public class AFinalActivity extends FinalActivity {
 
     // 文本请求
     public void onBtnTextClicked(View view){
-        Toast.makeText(this, "文本请求", Toast.LENGTH_SHORT).show();
+        FinalHttp http = new FinalHttp();
+        String url = "http://api.m.mtime.cn/PageSubArea/TrailerList.api";
+        http.get(url, new AjaxCallBack<String>() {
+            @Override
+            public void onStart() {
+                mTvResult.setText("开始加载");
+                super.onStart();
+            }
+
+            @Override
+            public void onSuccess(String s) {
+                // 显示加载成功后的结果
+                mTvResult.setText(s);
+                super.onSuccess(s);
+            }
+
+            @Override
+            public void onFailure(Throwable t, int errorNo, String strMsg) {
+                mTvResult.setText("加载失败");
+                super.onFailure(t, errorNo, strMsg);
+            }
+        });
     }
 
     // 文件下载
