@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.liqun.atguigucode.R;
 
 import net.tsz.afinal.FinalActivity;
+import net.tsz.afinal.FinalBitmap;
 import net.tsz.afinal.annotation.view.ViewInject;
 
 public class AFinalActivity extends FinalActivity {
@@ -47,7 +48,11 @@ public class AFinalActivity extends FinalActivity {
 
     // 加载图片
     public void onBtnImageClicked(View view){
-        Toast.makeText(this, "加载图片", Toast.LENGTH_SHORT).show();
+        FinalBitmap bitmap = FinalBitmap.create(this);
+        // 设置网络加载图片是默认显示的图片
+        bitmap.configLoadfailImage(R.drawable.atguigu_logo);
+        // 加载网络图片
+        bitmap.display(mIvImage,"http://img5.mtime.cn/mg/2016/10/11/160347.30270341.jpg");
     }
 
     // 文本请求
