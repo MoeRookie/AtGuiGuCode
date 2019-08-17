@@ -16,6 +16,8 @@ import net.tsz.afinal.FinalHttp;
 import net.tsz.afinal.annotation.view.ViewInject;
 import net.tsz.afinal.http.AjaxCallBack;
 
+import java.io.File;
+
 public class AFinalActivity extends FinalActivity {
     @ViewInject(id = R.id.tv_title)
     private TextView mTvTitle;
@@ -85,7 +87,30 @@ public class AFinalActivity extends FinalActivity {
 
     // 文件下载
     public void onBtnDownloadClicked(View view){
-        Toast.makeText(this, "文件下载", Toast.LENGTH_SHORT).show();
+        FinalHttp http = new FinalHttp();
+        // 请求网络资源的地址
+        String url = "http://vfx.mtime.cn/Video/2016/10/11/mp4/161011092841270064_480.mp4";
+        // 存放视频文件到本地
+        String target = getFilesDir()+"/afinal_music.mp4";
+        http.download(url, target, new AjaxCallBack<File>() {
+            @Override
+            public void onStart() {
+                mTvResult.setText("开始下载");
+                super.onStart();
+            }
+
+            @Override
+            public void onSuccess(File file) {
+                mTvResult.setText("下载文件成功");
+                super.onSuccess(file);
+            }
+
+            @Override
+            public void onFailure(Throwable t, int errorNo, String strMsg) {
+                mTvResult.setText("下载文件失败");
+                super.onFailure(t, errorNo, strMsg);
+            }
+        });
     }
 
     // 文件上传
