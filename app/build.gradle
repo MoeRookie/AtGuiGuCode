@@ -39,4 +39,6 @@ dependencies {
     implementation 'com.alibaba:fastjson:1.1.71.android'
     // xutils3
     implementation 'org.xutils:xutils:3.5.1'
+    // afinal
+    implementation files('libs/afinal_0.5.1_bin.jar')
 }
