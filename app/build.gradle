@@ -41,4 +41,5 @@ dependencies {
     implementation 'org.xutils:xutils:3.5.1'
     // afinal
     implementation files('libs/afinal_0.5.1_bin.jar')
+    implementation files('libs/volley.jar')
 }

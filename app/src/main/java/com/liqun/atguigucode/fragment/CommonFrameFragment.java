@@ -14,6 +14,7 @@ import com.liqun.atguigucode.json.activity.NativeParseActivity;
 import com.liqun.atguigucode.okhttp.activity.OkHttpActivity;
 import com.liqun.atguigucode.adapter.CommonFrameFragmentAdapter;
 import com.liqun.atguigucode.base.BaseFragment;
+import com.liqun.atguigucode.volley.VolleyActivity;
 import com.liqun.atguigucode.xutils3.XUtils3MainActivity;
 
 public class CommonFrameFragment extends BaseFragment {
@@ -24,6 +25,7 @@ public class CommonFrameFragment extends BaseFragment {
     private static final String FAST_JSON = "fastjson";
     private static final String X_UTILS_3 = "xutils3";
     private static final String A_FINAL = "afinal";
+    private static final String VOLLEY = "volley";
     private String[] mDatas;
     private ListView mListView;
     private CommonFrameFragmentAdapter mAdapter;
@@ -55,6 +57,9 @@ public class CommonFrameFragment extends BaseFragment {
                 } else if (A_FINAL.equals(data.toLowerCase())) {
                     Intent intent = AFinalActivity.newIntent(mCtx);
                     startActivity(intent);
+                } else if (VOLLEY.equals(data.toLowerCase())) {
+                    Intent intent = VolleyActivity.newIntent(mCtx);
+                    startActivity(intent);
                 }
             }
         });
@@ -66,10 +71,24 @@ public class CommonFrameFragment extends BaseFragment {
         Log.e(TAG, "常用框架页面的数据被初始化了");
         // 初始化数据
         mDatas = new String[]{
-                "OKHttp", "NativeParse","Gson","FastJson","xUtils3","Afinal","Retrofit2","Fresco",
-                "Glide","greenDao","RxJava","volley",
-                "picasso","evenBus",
-                "jcvideoplayer","pulltorefresh","Expandablelistview","UniversalVideoView",
+                "OKHttp",
+                "NativeParse",
+                "Gson",
+                "FastJson",
+                "xUtils3",
+                "Afinal",
+                "Volley",
+                "Retrofit2",
+                "Fresco",
+                "Glide",
+                "greenDao",
+                "RxJava",
+                "picasso",
+                "evenBus",
+                "jcvideoplayer",
+                "pulltorefresh",
+                "Expandablelistview",
+                "UniversalVideoView",
                 "....."
         };
         // 设置adapter
