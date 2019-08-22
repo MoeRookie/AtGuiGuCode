@@ -10,7 +10,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.NetworkImageView;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.liqun.atguigucode.R;
 
 public class VolleyActivity extends Activity
@@ -63,29 +68,43 @@ implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        String tempStr = null;
         switch (view.getId()) {
             case R.id.btn_get:
-                tempStr = "get请求";
+                reqGet();
                 break;
             case R.id.btn_post:
-                tempStr = "post请求";
                 break;
             case R.id.btn_request_json:
-                tempStr = "请求json数据";
                 break;
             case R.id.btn_image_request:
-                tempStr = "ImageRequest加载图片";
                 break;
             case R.id.btn_image_loader:
-                tempStr = "ImageLoader加载图片";
                 break;
             case R.id.btn_network_image_view:
-                tempStr = "NetworkImageView加载图片";
                 break;
             default:
                 break;
         }
-        Toast.makeText(this, tempStr, Toast.LENGTH_SHORT).show();
+    }
+
+    private void reqGet() {
+        // 1. 创建一个请求队列
+        RequestQueue queue = Volley.newRequestQueue(this);
+        // 2. 创建一个请求
+        String url = "http://api.m.mtime.cn/PageSubArea/TrailerList.api";
+        StringRequest request = new StringRequest(url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String s) { // 正确接收数据的回调
+                mTvResult.setText(s);
+            }
+        }, new Response.ErrorListener() { // 请求失败或发生异常后的回调
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                mTvResult.setText("加载失败:"+volleyError);
+            }
+        });
+        mTvResult.setText("");
+        // 3. 将请求添加到请求队列中
+        queue.add(request);
     }
 }
