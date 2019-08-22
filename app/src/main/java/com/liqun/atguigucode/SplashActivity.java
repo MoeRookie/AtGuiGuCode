@@ -13,6 +13,7 @@ import android.os.Bundle;
  * 5、Fastjson解析
  * 6、xUtils3
  * 7、Afinal
+ * 8、Volley
  */
 public class SplashActivity extends Activity {
 
