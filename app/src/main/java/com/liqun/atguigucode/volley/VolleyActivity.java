@@ -3,6 +3,7 @@ package com.liqun.atguigucode.volley;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,10 +16,14 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.liqun.atguigucode.R;
+
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -81,8 +86,10 @@ implements View.OnClickListener {
                 reqPost();
                 break;
             case R.id.btn_request_json:
+                reqJson();
                 break;
             case R.id.btn_image_request:
+                reqImage();
                 break;
             case R.id.btn_image_loader:
                 break;
@@ -91,6 +98,38 @@ implements View.OnClickListener {
             default:
                 break;
         }
+    }
+
+    private void reqImage() {
+        // 1.创建一个请求队列
+        RequestQueue queue = Volley.newRequestQueue(this);
+        // 2.创建一个图片请求
+        String url = "http://img5.mtime.cn/mg/2016/10/11/160347.30270341.jpg";
+        ImageRequest request = new ImageRequest(url, bitmap -> {// 正确接收数据的回调
+            mIvImage.setVisibility(View.VISIBLE);
+            mIvImage.setImageBitmap(bitmap);
+        }, 0, 0, Bitmap.Config.RGB_565, volleyError -> {// 请求失败或发生异常后的回调
+            mIvImage.setImageResource(R.drawable.atguigu_logo);
+        });
+        mIvImage.setVisibility(View.GONE);
+        // 3.将请求添加到请求队列中
+        queue.add(request);
+    }
+
+    private void reqJson() {
+        // 1. 创建一个请求队列
+        RequestQueue queue = Volley.newRequestQueue(this);
+        // 2. 创建一个请求
+        String url = "http://api.m.mtime.cn/PageSubArea/TrailerList.api";
+        JsonObjectRequest request = new JsonObjectRequest(url, null,
+                jsonObject -> {// 正确接收数据的回调
+                    mTvResult.setText(jsonObject.toString());
+                }, volleyError -> {// 请求失败或发生异常后的回调
+            mTvResult.setText("加载失败:" + volleyError);
+        });
+        mTvResult.setText("");
+        // 3. 将请求添加到请求队列中
+        queue.add(request);
     }
 
     private void reqPost() {
