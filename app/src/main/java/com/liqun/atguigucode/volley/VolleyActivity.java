@@ -106,17 +106,7 @@ implements View.OnClickListener {
         // 创建一个请求队列
         RequestQueue queue = Volley.newRequestQueue(this);
         // 创建一个imageLoader
-        ImageLoader loader = new ImageLoader(queue, new ImageLoader.ImageCache() {
-            @Override
-            public Bitmap getBitmap(String s) {
-                return null;
-            }
-
-            @Override
-            public void putBitmap(String s, Bitmap bitmap) {
-
-            }
-        });
+        ImageLoader loader = new ImageLoader(queue, new BitmapCache());
         // 请求图片
         mIvImage.setVisibility(View.GONE);
         String url = "http://img5.mtime.cn/mg/2016/10/11/160347.30270341.jpg";
