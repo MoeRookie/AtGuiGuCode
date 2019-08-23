@@ -96,10 +96,26 @@ implements View.OnClickListener {
                 loadImage();
                 break;
             case R.id.btn_network_image_view:
+                showNetImage();
                 break;
             default:
                 break;
         }
+    }
+
+    private void showNetImage() {
+        mNiv.setVisibility(View.GONE);
+        // 创建一个请求队列
+        RequestQueue queue = Volley.newRequestQueue(this);
+        // 创建一个ImageLoader
+        ImageLoader loader = new ImageLoader(queue, new BitmapCache());
+        // 设置默认图片和异常图片
+        mNiv.setDefaultImageResId(R.drawable.atguigu_logo);
+        mNiv.setErrorImageResId(R.drawable.atguigu_logo);
+        // 加载图片
+        String url = "http://img5.mtime.cn/mg/2016/10/11/160347.30270341.jpg";
+        mNiv.setImageUrl(url,loader);
+        mNiv.setVisibility(View.VISIBLE);
     }
 
     private void loadImage() {
