@@ -16,6 +16,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.NetworkImageView;
@@ -92,12 +93,37 @@ implements View.OnClickListener {
                 reqImage();
                 break;
             case R.id.btn_image_loader:
+                loadImage();
                 break;
             case R.id.btn_network_image_view:
                 break;
             default:
                 break;
         }
+    }
+
+    private void loadImage() {
+        // 创建一个请求队列
+        RequestQueue queue = Volley.newRequestQueue(this);
+        // 创建一个imageLoader
+        ImageLoader loader = new ImageLoader(queue, new ImageLoader.ImageCache() {
+            @Override
+            public Bitmap getBitmap(String s) {
+                return null;
+            }
+
+            @Override
+            public void putBitmap(String s, Bitmap bitmap) {
+
+            }
+        });
+        // 请求图片
+        mIvImage.setVisibility(View.GONE);
+        String url = "http://img5.mtime.cn/mg/2016/10/11/160347.30270341.jpg";
+        ImageLoader.ImageListener listener =
+                loader.getImageListener(mIvImage, R.drawable.atguigu_logo, R.drawable.atguigu_logo);
+        mIvImage.setVisibility(View.VISIBLE);
+        loader.get(url,listener);
     }
 
     private void reqImage() {
