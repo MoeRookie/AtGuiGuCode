@@ -41,5 +41,9 @@ dependencies {
     implementation 'org.xutils:xutils:3.5.1'
     // afinal
     implementation files('libs/afinal_0.5.1_bin.jar')
+    // volley
     implementation files('libs/volley.jar')
+    // butterknife
+    implementation 'com.jakewharton:butterknife:10.1.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
 }

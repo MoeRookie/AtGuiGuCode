@@ -8,6 +8,7 @@ import android.widget.ListView;
 
 import com.liqun.atguigucode.R;
 import com.liqun.atguigucode.afinal.AFinalActivity;
+import com.liqun.atguigucode.butterknife.ButterKnifeActivity;
 import com.liqun.atguigucode.json.activity.FastJsonActivity;
 import com.liqun.atguigucode.json.activity.GsonActivity;
 import com.liqun.atguigucode.json.activity.NativeParseActivity;
@@ -26,6 +27,7 @@ public class CommonFrameFragment extends BaseFragment {
     private static final String X_UTILS_3 = "xutils3";
     private static final String A_FINAL = "afinal";
     private static final String VOLLEY = "volley";
+    private static final String BUTTER_KNIFE = "butterknife";
     private String[] mDatas;
     private ListView mListView;
     private CommonFrameFragmentAdapter mAdapter;
@@ -60,6 +62,9 @@ public class CommonFrameFragment extends BaseFragment {
                 } else if (VOLLEY.equals(data.toLowerCase())) {
                     Intent intent = VolleyActivity.newIntent(mCtx);
                     startActivity(intent);
+                } else if(BUTTER_KNIFE.equals(data.toLowerCase())){
+                    Intent intent = ButterKnifeActivity.newIntent(mCtx);
+                    startActivity(intent);
                 }
             }
         });
@@ -78,6 +83,7 @@ public class CommonFrameFragment extends BaseFragment {
                 "xUtils3",
                 "Afinal",
                 "Volley",
+                "ButterKnife",
                 "Retrofit2",
                 "Fresco",
                 "Glide",
