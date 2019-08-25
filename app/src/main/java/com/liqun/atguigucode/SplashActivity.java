@@ -15,6 +15,7 @@ import android.os.Bundle;
  * 7、Afinal
  * 8、Volley
  * 9、ButterKnife
+ * 10、EventBus
  */
 public class SplashActivity extends Activity {
 
