@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.liqun.atguigucode.R;
 import com.liqun.atguigucode.eventbus.event.MessageEvent;
+import com.liqun.atguigucode.eventbus.event.StickyEvent;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -56,12 +57,18 @@ implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_send: // 跳转到发送界面
-                Intent intent = SendActivity.newIntent(this);
-                startActivity(intent);
+                enterSend();
                 break;
             case R.id.btn_send_sticky: // 发送粘性事件并跳转到发送界面
+                EventBus.getDefault().postSticky(new StickyEvent("粘性事件"));
+                enterSend();
                 break;
         }
+    }
+
+    private void enterSend() {
+        Intent intent = SendActivity.newIntent(this);
+        startActivity(intent);
     }
 
     @Subscribe(threadMode=ThreadMode.MAIN)

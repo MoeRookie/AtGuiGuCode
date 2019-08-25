@@ -10,14 +10,18 @@ import android.widget.TextView;
 
 import com.liqun.atguigucode.R;
 import com.liqun.atguigucode.eventbus.event.MessageEvent;
+import com.liqun.atguigucode.eventbus.event.StickyEvent;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 public class SendActivity extends Activity
 implements View.OnClickListener {
 
     private TextView mTvTitle,mTvResult;
     private Button mBtnSend, mBtnReceiveSticky;
+    private boolean isFirst;
 
     public static Intent newIntent(Context packageContext) {
         Intent intent = new Intent(packageContext, SendActivity.class);
@@ -40,6 +44,7 @@ implements View.OnClickListener {
 
     private void initData() {
         mTvTitle.setText("EventBus发送数据");
+        isFirst = true;
     }
 
     private void initView() {
@@ -56,8 +61,25 @@ implements View.OnClickListener {
                 EventBus.getDefault().post(new MessageEvent("李鹏鹏","1357810"));
                 finish();
                 break;
-            case R.id.btn_receive_sticky:
+            case R.id.btn_receive_sticky: // 注册粘性事件
+                if (isFirst) {
+                    EventBus.getDefault().register(this);
+                    isFirst = false;
+                }
                 break;
         }
+    }
+
+    // sticky=true表示接收粘性事件
+    @Subscribe(threadMode = ThreadMode.MAIN,sticky = true)
+    public void onReceivedStickyEvent(StickyEvent event){
+        mTvResult.setText(event.msg);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().removeAllStickyEvents(); // 移除所有的粘性事件
+        EventBus.getDefault().unregister(this);
     }
 }
