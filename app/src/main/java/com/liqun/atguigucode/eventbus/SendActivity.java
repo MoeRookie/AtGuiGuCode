@@ -10,21 +10,21 @@ import android.widget.TextView;
 
 import com.liqun.atguigucode.R;
 
-public class EventBusActivity extends Activity
+public class SendActivity extends Activity
 implements View.OnClickListener {
 
     private TextView mTvTitle,mTvResult;
-    private Button mBtnSend,mBtnSendSticky;
+    private Button mBtnSend, mBtnReceiveSticky;
 
     public static Intent newIntent(Context packageContext) {
-        Intent intent = new Intent(packageContext, EventBusActivity.class);
+        Intent intent = new Intent(packageContext, SendActivity.class);
         return intent;
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_event_bus);
+        setContentView(R.layout.activity_send);
         initView();
         initData();
         initListener();
@@ -32,28 +32,26 @@ implements View.OnClickListener {
 
     private void initListener() {
         mBtnSend.setOnClickListener(this);
-        mBtnSendSticky.setOnClickListener(this);
+        mBtnReceiveSticky.setOnClickListener(this);
     }
 
     private void initData() {
-        mTvTitle.setText("EventBus");
+        mTvTitle.setText("EventBus发送数据");
     }
 
     private void initView() {
         mTvTitle = findViewById(R.id.tv_title);
         mBtnSend = findViewById(R.id.btn_send);
-        mBtnSendSticky = findViewById(R.id.btn_send_sticky);
+        mBtnReceiveSticky = findViewById(R.id.btn_receive_sticky);
         mTvResult = findViewById(R.id.tv_result);
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.btn_send: // 跳转到发送界面
-                Intent intent = SendActivity.newIntent(this);
-                startActivity(intent);
+            case R.id.btn_send:
                 break;
-            case R.id.btn_send_sticky: // 发送粘性事件并跳转到发送界面
+            case R.id.btn_receive_sticky:
                 break;
         }
     }
