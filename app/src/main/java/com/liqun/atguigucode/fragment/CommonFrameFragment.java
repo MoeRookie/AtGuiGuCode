@@ -9,6 +9,7 @@ import android.widget.ListView;
 import com.liqun.atguigucode.R;
 import com.liqun.atguigucode.afinal.AFinalActivity;
 import com.liqun.atguigucode.butterknife.ButterKnifeActivity;
+import com.liqun.atguigucode.eventbus.EventBusActivity;
 import com.liqun.atguigucode.json.activity.FastJsonActivity;
 import com.liqun.atguigucode.json.activity.GsonActivity;
 import com.liqun.atguigucode.json.activity.NativeParseActivity;
@@ -28,6 +29,7 @@ public class CommonFrameFragment extends BaseFragment {
     private static final String A_FINAL = "afinal";
     private static final String VOLLEY = "volley";
     private static final String BUTTER_KNIFE = "butterknife";
+    private static final String EVENT_BUS = "eventbus";
     private String[] mDatas;
     private ListView mListView;
     private CommonFrameFragmentAdapter mAdapter;
@@ -65,6 +67,9 @@ public class CommonFrameFragment extends BaseFragment {
                 } else if(BUTTER_KNIFE.equals(data.toLowerCase())){
                     Intent intent = ButterKnifeActivity.newIntent(mCtx);
                     startActivity(intent);
+                } else if (EVENT_BUS.equals(data.toLowerCase())) {
+                    Intent intent = EventBusActivity.newIntent(mCtx);
+                    startActivity(intent);
                 }
             }
         });
@@ -84,13 +89,13 @@ public class CommonFrameFragment extends BaseFragment {
                 "Afinal",
                 "Volley",
                 "ButterKnife",
+                "EventBus",
                 "Retrofit2",
                 "Fresco",
                 "Glide",
                 "greenDao",
                 "RxJava",
                 "picasso",
-                "evenBus",
                 "jcvideoplayer",
                 "pulltorefresh",
                 "Expandablelistview",
