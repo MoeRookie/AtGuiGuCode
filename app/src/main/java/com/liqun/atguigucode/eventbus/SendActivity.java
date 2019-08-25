@@ -9,6 +9,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.liqun.atguigucode.R;
+import com.liqun.atguigucode.eventbus.event.MessageEvent;
+
+import org.greenrobot.eventbus.EventBus;
 
 public class SendActivity extends Activity
 implements View.OnClickListener {
@@ -50,6 +53,8 @@ implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_send:
+                EventBus.getDefault().post(new MessageEvent("李鹏鹏","1357810"));
+                finish();
                 break;
             case R.id.btn_receive_sticky:
                 break;

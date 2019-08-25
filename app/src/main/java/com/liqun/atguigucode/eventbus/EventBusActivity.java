@@ -9,6 +9,11 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.liqun.atguigucode.R;
+import com.liqun.atguigucode.eventbus.event.MessageEvent;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 public class EventBusActivity extends Activity
 implements View.OnClickListener {
@@ -37,6 +42,7 @@ implements View.OnClickListener {
 
     private void initData() {
         mTvTitle.setText("EventBus");
+        EventBus.getDefault().register(this);
     }
 
     private void initView() {
@@ -56,5 +62,16 @@ implements View.OnClickListener {
             case R.id.btn_send_sticky: // 发送粘性事件并跳转到发送界面
                 break;
         }
+    }
+
+    @Subscribe(threadMode=ThreadMode.MAIN)
+    public void onReceivedEvent(MessageEvent event){
+        mTvResult.setText("username = " + event.name + "\npassword = " + event.password);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }
